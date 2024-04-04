@@ -1,7 +1,7 @@
 select * from TiposUsuario
 
 insert into TiposUsuario
-values (NEWID(), 'Paciente')
+values (NEWID(), 'medico')
 
 
 select * from Pacientes
@@ -11,6 +11,7 @@ select * from Consultas
 select * from Consultas
 
 select * from Usuarios
+
 
 select * from Medicos
 
@@ -42,4 +43,9 @@ insert into NiveisPrioridade
 values (NEWID(), 0)
 
 UPDATE dbo.Consultas SET PacienteID = '91a65bfe-4413-450f-b063-7d8247311076';
+UPDATE dbo.Consultas SET PacienteID = 'FCB94260-A63A-47D1-B5BA-3D8A27D80B2E';
+
+update dbo.Consultas set DataConsulta= (GETDATE())
+
+update dbo.Usuarios set TipoUsuarioID= '97E4A35A-5CFD-4AC3-AEC0-BC240DA1E392' where Nome='vinicius'
 
