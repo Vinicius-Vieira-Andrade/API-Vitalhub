@@ -39,6 +39,12 @@ namespace WebAPI.Controllers
             return Ok(consultas);
         }
 
+        [HttpGet("BuscarPorId")]
+        public IActionResult BuscaPorId(Guid id)
+        {
+            return Ok(consultaRepository.BuscarPorId(id));
+        }
+
         [HttpPost("Cadastrar")]
         public IActionResult Cadastrar(Consulta consulta)
         {

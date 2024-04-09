@@ -43,7 +43,7 @@ public partial class VitalContext : DbContext
     public virtual DbSet<Usuario> Usuarios { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-4OPK5RC\\SQLEXPRESS; initial catalog=VitalHub_G10; user Id = sa; pwd=Senai@134; TrustServerCertificate=true;");
+        => optionsBuilder.UseSqlServer("Data Source=NOTE05-S21; initial catalog=VitalHub_G10Tarde_V2; user Id = sa; pwd=Senai@134; TrustServerCertificate=true;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

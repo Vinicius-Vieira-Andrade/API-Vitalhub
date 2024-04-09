@@ -49,3 +49,8 @@ update dbo.Consultas set DataConsulta= (GETDATE())
 
 update dbo.Usuarios set TipoUsuarioID= '97E4A35A-5CFD-4AC3-AEC0-BC240DA1E392' where Nome='vinicius'
 
+
+update Enderecos set Latitude= '-23.58155781979929' 
+
+
+-23.58155781979929, -46.59913869991061
