@@ -5,6 +5,7 @@ using System.IdentityModel.Tokens.Jwt;
 using WebAPI.Domains;
 using WebAPI.Interfaces;
 using WebAPI.Repositories;
+using WebAPI.Utils.Mail;
 using WebAPI.ViewModels;
 
 namespace WebAPI.Controllers
@@ -15,47 +16,31 @@ namespace WebAPI.Controllers
     {
         private IPacienteRepository pacienteRepository { get; set; }
 
-        public PacientesController()
+        private readonly EmailSedingService _emailSedingService;
+
+        public PacientesController(EmailSedingService emailSedingService)
         {
             pacienteRepository = new PacienteRepository();
-        }
-
-        [Authorize]
-        [HttpGet("ConsultasAgendadas")]
-        public IActionResult BuscarAgendadas()
-        {
-            Guid idUsuario = Guid.Parse(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
-
-            return Ok(pacienteRepository.BuscarAgendadas(idUsuario));
-        }
-
-        [Authorize]
-        [HttpGet("ConsultasRealizadas")]
-        public IActionResult BuscarRealizadas()
-        {
-            Guid idUsuario = Guid.Parse(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
-
-            return Ok(pacienteRepository.BuscarRealizadas(idUsuario));
-        }
-
-        [Authorize]
-        [HttpGet("ConsultasCanceladas")]
-        public IActionResult BuscarCanceladas()
-        {
-            Guid idUsuario = Guid.Parse(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
-
-            return Ok(pacienteRepository.BuscarRealizadas(idUsuario));
+            _emailSedingService = emailSedingService;
         }
 
         [HttpGet("PerfilLogado")]
-        public IActionResult BuscarLogado()
+        public IActionResult GetLogged()
         {
-            Guid idUsuario = Guid.Parse(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
+            try
+            {
+                Guid idUsuario = Guid.Parse(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
 
-            return Ok(pacienteRepository.BuscarPorId(idUsuario));
+                return Ok(pacienteRepository.BuscarPorId(idUsuario));
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("BuscarPorId")]
         public IActionResult BuscarPorId(Guid id)
         {
@@ -63,7 +48,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(PacienteViewModel pacienteModel)
+        public async Task<IActionResult> Post(PacienteViewModel pacienteModel)
         {
             Usuario user = new Usuario();
 
@@ -88,13 +73,35 @@ namespace WebAPI.Controllers
 
             pacienteRepository.Cadastrar(user);
 
+            await _emailSedingService.SendWelcomeEmail(user.Email!, user.Nome!);
+
             return Ok();
         }
 
         [HttpGet("BuscarPorData")]
-        public IActionResult BuscarPorData(DateTime data, Guid id)
+        public IActionResult GetByDate(DateTime data, Guid id)
         {
-            return Ok(pacienteRepository.BuscarPorData(data,id));
+            try
+            {
+                return Ok(pacienteRepository.BuscarPorData(data, id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        public IActionResult UpdateProfile(Guid idUsuario, PacienteViewModel paciente)
+        {
+            try
+            {
+                return Ok(pacienteRepository.AtualizarPerfil(idUsuario, paciente));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
