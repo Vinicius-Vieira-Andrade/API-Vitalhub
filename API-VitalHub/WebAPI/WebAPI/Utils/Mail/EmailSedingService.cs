@@ -19,6 +19,8 @@
                         Subject = "Bem vindo ao vitalhub",
                         Body = GetHtmlContent(userName)
                     };
+
+                    await emailService.SendEmailAsync(request);
                 }
                 catch (Exception)
                 {
@@ -37,7 +39,9 @@
                         Subject = "Recuperação de senha",
                         Body = GetHtmlContentRecovery(codigo)
                     };
-                }
+
+                await emailService.SendEmailAsync(request);
+            }
                 catch (Exception)
                 {
 
