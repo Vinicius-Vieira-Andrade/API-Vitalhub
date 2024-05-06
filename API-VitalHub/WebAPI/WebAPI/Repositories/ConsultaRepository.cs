@@ -39,6 +39,25 @@ namespace WebAPI.Repositories
             ctx.SaveChanges();
         }
 
+        public void Delete(Guid id)
+        {
+            try
+            {
+                Consulta buscaConsulta = ctx.Consultas.FirstOrDefault(x => x.Id == id)!;
+                if (buscaConsulta != null)
+                {
+                    ctx.Remove(buscaConsulta);
+                    ctx.SaveChanges();
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         public void EditarProntuario(Consulta consulta)
         {
             try

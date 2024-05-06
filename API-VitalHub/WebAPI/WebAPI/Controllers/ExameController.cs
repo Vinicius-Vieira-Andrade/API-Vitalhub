@@ -39,14 +39,6 @@ namespace WebAPI.Controllers
                     exame.Descricao = exameViewModel.Descricao;
                     exame.ConsultaId = exameViewModel.ConsultaId;
 
-                    // ou
-
-                    //Exame exame = new Exame
-                    //{
-                    //    Descricao = exameViewModel.Descricao,
-                    //    ConsultaId = exameViewModel.ConsultaId
-                    //};
-
                     _exameRepository.Cadastrar(exame);
 
                     return Ok(exame);

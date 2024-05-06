@@ -137,6 +137,22 @@ namespace WebAPI.Controllers
             }
         }
 
+
+        [HttpDelete]
+        public IActionResult Remove(Guid id )
+        {
+            try
+            {
+              consultaRepository.Delete(id);
+              return Ok("Consulta removida com sucesso");
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         [HttpGet("BuscarPorId")]
         public IActionResult GetById(Guid id)
         {
