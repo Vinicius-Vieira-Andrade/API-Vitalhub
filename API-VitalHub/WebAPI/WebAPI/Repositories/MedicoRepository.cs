@@ -85,6 +85,7 @@ namespace WebAPI.Repositories
                     .Include(m => m.IdNavigation)
                     .Include(m => m.Endereco)
                     .Include(m => m.Especialidade)
+                    .Include(m => m.MedicosClinicas)
                     .FirstOrDefault(m => m.Id == Id)!;
 
                 return medicoBuscado;
