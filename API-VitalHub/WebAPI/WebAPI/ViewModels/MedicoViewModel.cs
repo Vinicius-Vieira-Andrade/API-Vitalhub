@@ -29,6 +29,6 @@ namespace WebAPI.ViewModels
 
         [JsonIgnore]
         [NotMapped]
-        public IFormFile Arquivo { get; set; }
+        public IFormFile? Arquivo { get; set; }
     }
 }
