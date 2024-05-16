@@ -49,6 +49,20 @@ namespace WebAPI.Controllers
             }
         }
 
+        [HttpGet("BuscaEmail")]
+        public IActionResult GetEmail(string email)
+        {
+            try
+            {
+                return Ok(usuarioRepository.BuscaEmail(email));
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
 
         [HttpPut("AlterarFotoPerfil")]
         public async Task<IActionResult> UploadProfileImage(Guid id, [FromForm] UsuarioViewModel user)

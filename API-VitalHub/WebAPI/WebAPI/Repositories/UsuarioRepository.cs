@@ -51,6 +51,28 @@ namespace WebAPI.Repositories
             }
         }
 
+        public string BuscaEmail(string email)
+        {
+            try
+            {
+                Usuario buscaUsuario = ctx.Usuarios.FirstOrDefault(x => x.Email == email)!;
+
+                if (buscaUsuario != null)
+                {
+                    return buscaUsuario.Email!;
+                }
+                else
+                {
+                    return "Erro ao buscar email!!";
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         public Usuario BuscarPorEmailESenha(string email, string senha)
         {
             try

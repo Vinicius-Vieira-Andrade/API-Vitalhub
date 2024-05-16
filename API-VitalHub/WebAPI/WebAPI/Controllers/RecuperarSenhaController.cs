@@ -58,7 +58,7 @@ namespace WebAPI.Controllers
             }
         }
 
-        [HttpPost("Confirmar Codigo")]
+        [HttpPost("ConfirmarCodigo")]
         public async Task<IActionResult> ConfirmSendCode(string email, int codigo)
         {
             try

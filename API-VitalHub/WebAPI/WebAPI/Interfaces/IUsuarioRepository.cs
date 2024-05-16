@@ -13,5 +13,7 @@ namespace WebAPI.Interfaces
         bool AlterarSenha(string email, string senhaNova);
 
         public void AtualizarFoto(Guid id, string novaUrlFoto);
+
+        public string? BuscaEmail(string email);
     }
 }
