@@ -38,7 +38,7 @@ namespace WebAPI.Utils.BlobStorage
 				else
 				{
 					// retorna imagem padrao caso nenhum arquivo seja enviado/upado
-					return "https://vitahubg10.blob.core.windows.net/images-vitalhub/defaultprofile.jpg";
+					return "https://vitahubg10.blob.core.windows.net/images-vitalhub/10100313.png";
 				}
 			}
 			catch (Exception)

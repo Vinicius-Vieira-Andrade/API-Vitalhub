@@ -74,7 +74,7 @@ namespace WebAPI.Repositories
                 }
                 else
                 {
-                    ctx.Add(consulta.Receita);
+                    ctx.Receitas.Add(consulta.Receita);
                 }
 
                 ctx.Update(buscada);
