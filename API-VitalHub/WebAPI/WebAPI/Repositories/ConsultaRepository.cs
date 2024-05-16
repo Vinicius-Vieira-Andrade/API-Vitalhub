@@ -17,13 +17,13 @@ namespace WebAPI.Repositories
             try
             {
                 return ctx.Consultas
+                    .Include(x => x.Receita)
                     .Include(x => x.Exames)
                     .Include(x => x.MedicoClinica!.Medico!.Especialidade)
                     .Include(x => x.MedicoClinica!.Medico!.IdNavigation)
                     .Include(x => x.Paciente!.IdNavigation)
                     .Include(x => x.Prioridade)
                     .Include(x => x.Situacao)
-                    .Include(x => x.Receita)
                     .FirstOrDefault(x => x.Id == id)!;
 
             }
@@ -70,11 +70,13 @@ namespace WebAPI.Repositories
                 if (buscada.ReceitaId != null)
                 {
                     buscada.Receita = consulta.Receita;
-
                 }
                 else
                 {
-                    ctx.Receitas.Add(consulta.Receita);
+                    buscada.Receita = new Receita()
+                    {
+                        Medicamento = consulta.Receita!.Medicamento
+                    };
                 }
 
                 ctx.Update(buscada);
